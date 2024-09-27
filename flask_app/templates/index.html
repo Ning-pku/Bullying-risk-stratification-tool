@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physical Bullying Risk Stratification</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #4a90e2;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #357ab7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Physical Bullying Risk Stratification Form</h1>
+        <form action="/" method="POST">
+            <div class="mb-3">
+                <label for="age" class="form-label">Age:</label>
+                <input type="number" class="form-control" name="Age" required>
+            </div>
+            <div class="mb-3">
+                <label for="sex" class="form-label">Sex (Male: 1, Female: 0):</label>
+                <input type="number" class="form-control" name="Sex_Male" required>
+            </div>
+            <div class="mb-3">
+                <label for="depressive" class="form-label">Depressive Symptoms (Low-High: 0-10):</label>
+                <input type="number" class="form-control" name="Depressive symptoms_High" min="0" max="10" required>
+            </div>
+            <div class="mb-3">
+                <label for="parent_child" class="form-label">Parent-child Relationship (Poor-Good: 0-10):</label>
+                <input type="number" class="form-control" name="Parent-child relationship_Poor" required>
+            </div>
+            <div class="mb-3">
+                <label for="family_function" class="form-label">Family Function Dissatisfaction (Low-High: 0-10):</label>
+                <input type="number" class="form-control" name="Family function dissatisfaction" min="0" max="10" required>
+            </div>
+            <div class="mb-3">
+                <label for="classmate_support" class="form-label">Classmate Support (Low-High: 0-10):</label>
+                <input type="number" class="form-control" name="Classmate support_High" min="0" max="10" required>
+            </div>
+            <div class="mb-3">
+                <label for="teacher_support" class="form-label">Teacher Support (Low-High: 0-10):</label>
+                <input type="number" class="form-control" name="Teacher support_High" min="0" max="10" required>
+            </div>
+            <div class="mb-3">
+                <label for="school_belonging" class="form-label">School Belongingness (Low-High: 0-10):</label>
+                <input type="number" class="form-control" name="School belongingness_High" min="0" max="10" required>
+            </div>
+            <div class="mb-3">
+                <label for="school_course" class="form-label">School Psychosocial Course (Yes: 1, No: 0):</label>
+                <input type="number" class="form-control" name="School psychosocial course_Yes" required>
+            </div>
+            <div class="mb-3">
+                <label for="positive_bullying_attitude" class="form-label">Positive Bullying Attitude (Low-High: 0-10):</label>
+                <input type="number" class="form-control" name="Positive bullying attitude_High" min="0" max="10" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </form>
+
+        {% if result %}
+        <div class="mt-5">
+            <h2 class="text-center mb-4">Prediction Results</h2>
+            <div class="alert alert-primary d-flex justify-content-center align-items-center">
+                <div class="text-center">
+                    <p class="h5 mb-3"><strong><i class="fas fa-chart-bar"></i> SHAP Total Score:</strong> <span class="badge bg-info text-dark">{{ result.shap_total_score }}</span></p>
+                    <p class="h5 mb-0"><strong><i class="fas fa-exclamation-circle"></i> Risk Level:</strong> 
+                        {% if result.risk_level == 'High risk' %}
+                            <span class="badge bg-danger">{{ result.risk_level }}</span>
+                        {% elif result.risk_level == 'Middle risk' %}
+                            <span class="badge bg-warning text-dark">{{ result.risk_level }}</span>
+                        {% else %}
+                            <span class="badge bg-success">{{ result.risk_level }}</span>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Include Bootstrap JavaScript (optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
