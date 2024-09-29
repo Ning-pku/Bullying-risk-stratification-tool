@@ -4,21 +4,32 @@ import numpy as np
 import pickle
 import shap
 import warnings
+import os
 warnings.filterwarnings("ignore", message="Loaded recoded labels:")
 
 app = Flask(__name__)
+current_dir = os.path.dirname(__file__)  # 获取当前文件所在的目录
+
+# 生成文件路径
+scaler_file_path = os.path.join(current_dir, 'scaler_fitted.pkl')
+lightgbm_pb_path = os.path.join(current_dir, 'lightgbm_model_Physical Bullying.pkl')
+lightgbm_vb_path = os.path.join(current_dir, 'lightgbm_model_Verbal Bullying.pkl')
+lightgbm_sb_path = os.path.join(current_dir, 'lightgbm_model_Social Bullying.pkl')
+lightgbm_cb_path = os.path.join(current_dir, 'lightgbm_model_Cyber Bullying.pkl')
 
 # 加载模型
-with open('scaler_fitted.pkl', 'rb') as scaler_file:
+with open(scaler_file_path, 'rb') as scaler_file:
     loaded_scaler = pickle.load(scaler_file)
-    lightgbm_model_pb = joblib.load('lightgbm_model_Physical Bullying.pkl')
-    lightgbm_model_vb = joblib.load('lightgbm_model_Verbal Bullying.pkl')
-    lightgbm_model_sb = joblib.load('lightgbm_model_Social Bullying.pkl')
-    lightgbm_model_cb = joblib.load('lightgbm_model_Cyber Bullying.pkl')
+
+lightgbm_model_pb = joblib.load(lightgbm_pb_path)
+lightgbm_model_vb = joblib.load(lightgbm_vb_path)
+lightgbm_model_sb = joblib.load(lightgbm_sb_path)
+lightgbm_model_cb = joblib.load(lightgbm_cb_path)
 
 def load_kmeans_model(dependent_var):
     """加载 KMeans 模型和重新编码的标签"""
-    model_data = joblib.load(f'kmeans_model_{dependent_var}.pkl')
+    kmeans_model_path = os.path.join(current_dir, f'kmeans_model_{dependent_var}.pkl')
+    model_data = joblib.load(kmeans_model_path)
     return model_data['kmeans'], model_data['recoding_map']
 
 # 加载 KMeans 模型
