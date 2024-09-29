@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bullying Risk Stratification</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #4a90e2;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #357ab7;
+        }
+        .shap-variable {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        .shap-variable:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Bullying Risk Stratification Form</h1>
+        <form action="/" method="POST">
+            <div class="mb-3">
+                <label for="age" class="form-label">Age:</label>
+                <input type="number" class="form-control" name="Age" required>
+            </div>
+            <div class="mb-3">
+                <label for="sex" class="form-label">Sex (Male: 1, Female: 0):</label>
+                <input type="number" class="form-control" name="Sex_Male" required>
+            </div>
+            <div class="mb-3">
+                <label for="rural" class="form-label">Rural (Yes: 1, No: 0):</label>
+                <input type="number" class="form-control" name="Rural" required>
+            </div>
+            <div class="mb-3">
+                <label for="two_week_illness" class="form-label">Two Week Illness (Yes: 1, No: 0):</label>
+                <input type="number" class="form-control" name="Two week illness_Yes" required>
+            </div>
+            <div class="mb-3">
+                <label for="depressive" class="form-label">Depressive Symptoms (Low-High: 0-10):</label>
+                <input type="number" class="form-control" name="Depressive symptoms_High" min="0" max="10" required>
+            </div>
+            <div class="mb-3">
+                <label for="parent_child" class="form-label">Parent-child Relationship (Poor-Good: 0-10):</label>
+                <input type="number" class="form-control" name="Parent-child relationship_Poor" required>
+            </div>
+            <div class="mb-3">
+                <label for="family_function" class="form-label">Family Function Dissatisfaction (Low-High: 0-10):</label>
+                <input type="number" class="form-control" name="Family function dissatisfaction" min="0" max="10" required>
+            </div>
+            <div class="mb-3">
+                <label for="classmate_support" class="form-label">Classmate Support (Low-High: 0-10):</label>
+                <input type="number" class="form-control" name="Classmate support_High" min="0" max="10" required>
+            </div>
+            <div class="mb-3">
+                <label for="teacher_support" class="form-label">Teacher Support (Low-High: 0-10):</label>
+                <input type="number" class="form-control" name="Teacher support_High" min="0" max="10" required>
+            </div>
+            <div class="mb-3">
+                <label for="school_belonging" class="form-label">School Belongingness (Low-High: 0-10):</label>
+                <input type="number" class="form-control" name="School belongingness_High" min="0" max="10" required>
+            </div>
+            <div class="mb-3">
+                <label for="school_course" class="form-label">School Psychosocial Course (Yes: 1, No: 0):</label>
+                <input type="number" class="form-control" name="School psychosocial course_Yes" required>
+            </div>
+            <div class="mb-3">
+                <label for="positive_bullying_attitude" class="form-label">Positive Bullying Attitude (Low-High: 0-10):</label>
+                <input type="number" class="form-control" name="Positive bullying attitude_High" min="0" max="10" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </form>
+
+        {% if result %}
+        <div class="mt-5">
+            <h2 class="text-center mb-4">Prediction Results</h2>
+
+            {% for bullying_type, result_data in result.items() %}
+            <div class="result-card mt-4">
+                <h4>{{ bullying_type.capitalize() }} Bullying</h4>
+                <p><strong>SHAP Total Score:</strong> {{ result_data.shap_total_score }}</p>
+                <p><strong>Risk Level:</strong> 
+                    <span class="{% if result_data.risk_level == 'High risk' %}badge bg-danger{% elif result_data.risk_level == 'Middle risk' %}badge bg-warning text-dark{% else %}badge bg-success{% endif %}">
+                        {{ result_data.risk_level }}
+                    </span>
+                </p>
+                <p class="suggestion">Suggestion: {{ result_data.suggestion }}</p>
+
+                <!-- Display SHAP values for each variable -->
+                <div class="shap-values mt-4">
+                    <h5>SHAP Values (Sorted):</h5>
+                    {% for variable, shap_value in result_data.shap_values %}
+                    <div class="shap-variable">
+                        <span>{{ variable }}</span>
+                        <span>{{ shap_value }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Include Bootstrap JavaScript (optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
