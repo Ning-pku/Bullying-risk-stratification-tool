@@ -34,3 +34,4 @@ urllib3==2.2.3
 werkzeug==3.0.4
 yarg==0.1.10
 zipp==3.20.2
+gunicorn
