@@ -38,15 +38,14 @@ bullying_columns_map = {
               'School psychosocial course_Yes', 'Positive bullying attitude_High']
 }
 
-# 提供建议的函数
 def get_suggestion(risk_level):
     """根据风险级别提供建议"""
     if risk_level == 'High risk':
-        return "建议立即干预，与学校辅导员和家长合作。"
+        return "Immediate intervention recommended. Work with school counselors and parents."
     elif risk_level == 'Middle risk':
-        return "密切关注，通过相应的教育项目提供支持。"
+        return "Monitor closely and provide support through corresponding educational programs."
     else:
-        return "维持当前的方式，没有立即的风险。"
+        return "Maintain current approach, no immediate risk."
 
 # 模型和解释器缓存
 lightgbm_model_cache = {}
