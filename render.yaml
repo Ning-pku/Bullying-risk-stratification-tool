@@ -1,9 +1,2 @@
 runtime: python
 version: 3.8
-
-services:
-  - type: web
-    name: app  # 这里您可以根据需要命名您的服务
-    env: python
-    buildCommand: pip install -r requirements.txt  # 在构建期间安装依赖项
-    startCommand: gunicorn wsgi:app  # 使用 Gunicorn 启动应用
