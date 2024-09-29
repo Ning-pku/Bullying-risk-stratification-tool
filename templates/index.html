@@ -8,121 +8,234 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f8f9fa;
-            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: #333;
         }
-        .container {
-            max-width: 600px;
-            margin-top: 50px;
-            padding: 30px;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        .container-fluid {
+            margin-top: 30px;
+            max-width: 1200px;
         }
         h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
+            font-size: 32px;
+            margin-bottom: 30px;
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #444;
         }
         .form-label {
             font-weight: bold;
+            color: #555;
         }
         .btn-primary {
-            background-color: #4a90e2;
+            background-color: #007bff;
             border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         .btn-primary:hover {
-            background-color: #357ab7;
+            background-color: #0056b3;
+        }
+        .result-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .result-card h4 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .shap-values {
+            margin-top: 20px;
         }
         .shap-variable {
             display: flex;
             justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #ddd;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
         }
         .shap-variable:last-child {
             border-bottom: none;
         }
+        .suggestion-box {
+            font-weight: bold;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .suggestion-box.high-risk {
+            border: 2px solid #dc3545;
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .suggestion-box.middle-risk {
+            border: 2px solid #ffc107;
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .suggestion-box.low-risk {
+            border: 2px solid #28a745;
+            background-color: #d4edda;
+            color: #155724;
+        }
+        hr {
+            margin: 40px 0;
+            border-top: 1px solid #ccc;
+        }
+        .badge {
+            font-size: 14px;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        .form-section {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+        .form-section h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .mb-4 {
+            margin-bottom: 1.5rem;
+        }
+        .mt-4 {
+            margin-top: 1.5rem;
+        }
+        .mt-5 {
+            margin-top: 3rem;
+        }
+        @media (min-width: 768px) {
+            .form-row .col-md-6 {
+                padding-right: 15px;
+                padding-left: 15px;
+            }
+        }
+        .accordion-button {
+            background-color: #f9f9f9;
+            color: black;
+            font-weight: bold;
+        }
+        .accordion-button:not(.collapsed) {
+            background-color: #0056b3;
+        }
+        .accordion-body {
+            background-color: #f9f9f9;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <h1 class="text-center">Bullying Risk Stratification Form</h1>
-        <form action="/" method="POST">
-            <div class="mb-3">
-                <label for="age" class="form-label">Age:</label>
-                <input type="number" class="form-control" name="Age" required>
-            </div>
-            <div class="mb-3">
-                <label for="sex" class="form-label">Sex (Male: 1, Female: 0):</label>
-                <input type="number" class="form-control" name="Sex_Male" required>
-            </div>
-            <div class="mb-3">
-                <label for="rural" class="form-label">Rural (Yes: 1, No: 0):</label>
-                <input type="number" class="form-control" name="Rural" required>
-            </div>
-            <div class="mb-3">
-                <label for="two_week_illness" class="form-label">Two Week Illness (Yes: 1, No: 0):</label>
-                <input type="number" class="form-control" name="Two week illness_Yes" required>
-            </div>
-            <div class="mb-3">
-                <label for="depressive" class="form-label">Depressive Symptoms (Low-High: 0-10):</label>
-                <input type="number" class="form-control" name="Depressive symptoms_High" min="0" max="10" required>
-            </div>
-            <div class="mb-3">
-                <label for="parent_child" class="form-label">Parent-child Relationship (Poor-Good: 0-10):</label>
-                <input type="number" class="form-control" name="Parent-child relationship_Poor" required>
-            </div>
-            <div class="mb-3">
-                <label for="family_function" class="form-label">Family Function Dissatisfaction (Low-High: 0-10):</label>
-                <input type="number" class="form-control" name="Family function dissatisfaction" min="0" max="10" required>
-            </div>
-            <div class="mb-3">
-                <label for="classmate_support" class="form-label">Classmate Support (Low-High: 0-10):</label>
-                <input type="number" class="form-control" name="Classmate support_High" min="0" max="10" required>
-            </div>
-            <div class="mb-3">
-                <label for="teacher_support" class="form-label">Teacher Support (Low-High: 0-10):</label>
-                <input type="number" class="form-control" name="Teacher support_High" min="0" max="10" required>
-            </div>
-            <div class="mb-3">
-                <label for="school_belonging" class="form-label">School Belongingness (Low-High: 0-10):</label>
-                <input type="number" class="form-control" name="School belongingness_High" min="0" max="10" required>
-            </div>
-            <div class="mb-3">
-                <label for="school_course" class="form-label">School Psychosocial Course (Yes: 1, No: 0):</label>
-                <input type="number" class="form-control" name="School psychosocial course_Yes" required>
-            </div>
-            <div class="mb-3">
-                <label for="positive_bullying_attitude" class="form-label">Positive Bullying Attitude (Low-High: 0-10):</label>
-                <input type="number" class="form-control" name="Positive bullying attitude_High" min="0" max="10" required>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Submit</button>
-        </form>
+        <div class="form-section">
+            <form action="/" method="POST">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="age" class="form-label">Age:</label>
+                        <input type="number" class="form-control" name="Age" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="sex" class="form-label">Sex (Male: 1, Female: 0):</label>
+                        <input type="number" class="form-control" name="Sex_Male" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="rural" class="form-label">Rural (Yes: 1, No: 0):</label>
+                        <input type="number" class="form-control" name="Rural" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="two_week_illness" class="form-label">Two Week Illness (Yes: 1, No: 0):</label>
+                        <input type="number" class="form-control" name="Two week illness_Yes" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="depressive" class="form-label">Depressive Symptoms (Low-High: 0-10):</label>
+                        <input type="number" class="form-control" name="Depressive symptoms_High" min="0" max="10" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="parent_child" class="form-label">Parent-child Relationship (Good-Poor: 0-10):</label>
+                        <input type="number" class="form-control" name="Parent-child relationship_Poor" min="0" max="10" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="family_function" class="form-label">Family Function Dissatisfaction (Low-High: 0-10):</label>
+                        <input type="number" class="form-control" name="Family function dissatisfaction" min="0" max="10" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="classmate_support" class="form-label">Classmate Support (Low-High: 0-10):</label>
+                        <input type="number" class="form-control" name="Classmate support_High" min="0" max="10" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="teacher_support" class="form-label">Teacher Support (Low-High: 0-10):</label>
+                        <input type="number" class="form-control" name="Teacher support_High" min="0" max="10" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="school_belonging" class="form-label">School Belongingness (Low-High: 0-10):</label>
+                        <input type="number" class="form-control" name="School belongingness_High" min="0" max="10" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="school_course" class="form-label">School Psychosocial Course (Yes: 1, No: 0):</label>
+                        <input type="number" class="form-control" name="School psychosocial course_Yes" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="positive_bullying_attitude" class="form-label">Positive Bullying Attitude (Low-High: 0-10):</label>
+                        <input type="number" class="form-control" name="Positive bullying attitude_High" min="0" max="10" required>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
 
         {% if result %}
         <div class="mt-5">
             <h2 class="text-center mb-4">Prediction Results</h2>
-
             {% for bullying_type, result_data in result.items() %}
-            <div class="result-card mt-4">
+            <div class="result-card">
                 <h4>{{ bullying_type.capitalize() }} Bullying</h4>
+                <hr>
                 <p><strong>SHAP Total Score:</strong> {{ result_data.shap_total_score }}</p>
                 <p><strong>Risk Level:</strong> 
                     <span class="{% if result_data.risk_level == 'High risk' %}badge bg-danger{% elif result_data.risk_level == 'Middle risk' %}badge bg-warning text-dark{% else %}badge bg-success{% endif %}">
                         {{ result_data.risk_level }}
                     </span>
                 </p>
-                <p class="suggestion">Suggestion: {{ result_data.suggestion }}</p>
+                <!-- Suggestion box with dynamic color based on risk level -->
+                <div class="suggestion-box {% if result_data.risk_level == 'High risk' %}high-risk{% elif result_data.risk_level == 'Middle risk' %}middle-risk{% else %}low-risk{% endif %}">
+                    Suggestion: {{ result_data.suggestion }}
+                </div>
 
-                <!-- Display SHAP values for each variable -->
-                <div class="shap-values mt-4">
-                    <h5>SHAP Values (Sorted):</h5>
-                    {% for variable, shap_value in result_data.shap_values %}
-                    <div class="shap-variable">
-                        <span>{{ variable }}</span>
-                        <span>{{ shap_value }}</span>
+                <!-- Collapsible SHAP values section -->
+                <div class="accordion mt-4" id="accordionShap{{ bullying_type }}">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseShap{{ bullying_type }}" aria-expanded="false" aria-controls="collapseShap{{ bullying_type }}">
+                                SHAP Values (Sorted)
+                            </button>
+                        </h2>
+                        <div id="collapseShap{{ bullying_type }}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionShap{{ bullying_type }}">
+                            <div class="accordion-body">
+                                {% for variable, shap_value in result_data.shap_values %}
+                                <div class="shap-variable">
+                                    <span>{{ variable }}</span>
+                                    <span>{{ shap_value }}</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
                     </div>
-                    {% endfor %}
                 </div>
             </div>
             {% endfor %}
