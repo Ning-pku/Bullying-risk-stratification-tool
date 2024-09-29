@@ -140,7 +140,7 @@
 </head>
 <body>
     <div class="container-fluid">
-        <h1 class="text-center">Bullying Risk Stratification Form</h1>
+        <h1 class="text-center">School Bullying Risk Stratification Tool</h1>
         <div class="form-section">
             <form action="/" method="POST">
                 <div class="row">
@@ -204,7 +204,7 @@
             <h2 class="text-center mb-4">Prediction Results</h2>
             {% for bullying_type, result_data in result.items() %}
             <div class="result-card">
-                <h4>{{ bullying_type.capitalize() }} Bullying</h4>
+                <h4><strong>{{ bullying_type.capitalize() }} Bullying</strong></h4>
                 <hr>
                 <p><strong>SHAP Total Score:</strong> {{ result_data.shap_total_score }}</p>
                 <p><strong>Risk Level:</strong> 
