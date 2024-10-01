@@ -136,61 +136,77 @@
         .accordion-body {
             background-color: #f9f9f9;
         }
+        .small-text {
+            font-size: 12px;
+            color: #888;
+        }
     </style>
 </head>
 <body>
     <div class="container-fluid">
-        <h1 class="text-center">School Bullying Risk Stratification Tool</h1>
+        <h1 class="text-center">Bullying Risk Stratification Form</h1>
         <div class="form-section">
             <form action="/" method="POST">
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="age" class="form-label">Age:</label>
                         <input type="number" class="form-control" name="Age" required>
+                        <small class="small-text">Age in years.</small>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="sex" class="form-label">Sex (Male: 1, Female: 0):</label>
                         <input type="number" class="form-control" name="Sex_Male" required>
+                        <small class="small-text">Indicate sex identity.</small>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="rural" class="form-label">Rural (Yes: 1, No: 0):</label>
                         <input type="number" class="form-control" name="Rural" required>
+                        <small class="small-text">Specify if live in a rural area.</small>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="two_week_illness" class="form-label">Two Week Illness (Yes: 1, No: 0):</label>
                         <input type="number" class="form-control" name="Two week illness_Yes" required>
+                        <small class="small-text">Indicate if experienced any physical discomfort in the past two weeks</small>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="depressive" class="form-label">Depressive Symptoms (Low-High: 0-10):</label>
                         <input type="number" class="form-control" name="Depressive symptoms_High" min="0" max="10" required>
+                        <small class="small-text">Rate the intensity of feelings of sadness or hopelessness in the past week.</small>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="parent_child" class="form-label">Parent-child Relationship (Good-Poor: 0-10):</label>
                         <input type="number" class="form-control" name="Parent-child relationship_Poor" min="0" max="10" required>
+                        <small class="small-text">Evaluate how insecure or disconnected the relationship is with parents.</small>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="family_function" class="form-label">Family Function Dissatisfaction (Low-High: 0-10):</label>
                         <input type="number" class="form-control" name="Family function dissatisfaction" min="0" max="10" required>
+                        <small class="small-text">Assess dissatisfaction with family communication and trusts.</small>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="classmate_support" class="form-label">Classmate Support (Low-High: 0-10):</label>
                         <input type="number" class="form-control" name="Classmate support_High" min="0" max="10" required>
+                        <small class="small-text">Rate feelings of acceptance and inclusion by classmates.</small>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="teacher_support" class="form-label">Teacher Support (Low-High: 0-10):</label>
                         <input type="number" class="form-control" name="Teacher support_High" min="0" max="10" required>
+                        <small class="small-text">Rate feelings of acceptance and inclusion by teachers.</small>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="school_belonging" class="form-label">School Belongingness (Low-High: 0-10):</label>
                         <input type="number" class="form-control" name="School belongingness_High" min="0" max="10" required>
+                        <small class="small-text">Rate the sense of belonging and identity with the school.</small>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="school_course" class="form-label">School Psychosocial Course (Yes: 1, No: 0):</label>
                         <input type="number" class="form-control" name="School psychosocial course_Yes" required>
+                        <small class="small-text">Indicate if a mental health course was taken in the last semester.</small>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="positive_bullying_attitude" class="form-label">Positive Bullying Attitude (Low-High: 0-10):</label>
                         <input type="number" class="form-control" name="Positive bullying attitude_High" min="0" max="10" required>
+                        <small class="small-text">Rate beliefs that rationalize or justify bullying behavior.</small>
                     </div>
                 </div>
                 <div class="text-center mt-4">
@@ -204,7 +220,7 @@
             <h2 class="text-center mb-4">Prediction Results</h2>
             {% for bullying_type, result_data in result.items() %}
             <div class="result-card">
-                <h4><strong>{{ bullying_type.capitalize() }} Bullying</strong></h4>
+                <h4>{{ bullying_type.capitalize() }} Bullying</h4>
                 <hr>
                 <p><strong>SHAP Total Score:</strong> {{ result_data.shap_total_score }}</p>
                 <p><strong>Risk Level:</strong> 
